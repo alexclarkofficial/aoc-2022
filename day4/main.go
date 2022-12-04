@@ -65,17 +65,20 @@ func findPartialOverlaps(pairs [][][]int) int {
     firstElf := pair[0]
     secondElf := pair[1]
 
-    if firstElf[0] <= secondElf[0] && firstElf[1] >= secondElf[1] {
-      overlaps++
-    } else if firstElf[0] >= secondElf[0] && firstElf[1] <= secondElf[1] {
-      overlaps++
-    } else if firstElf[0] <= secondElf[1] && firstElf[0] >= secondElf[0] {
-      overlaps++
-    } else if firstElf[1] >= secondElf[0] && firstElf[1] <= secondElf[1] {
+    if partialOverlaps(firstElf, secondElf) || partialOverlaps(secondElf, firstElf) {
       overlaps++
     }
   }
   return overlaps
+}
+
+func partialOverlaps(a []int, b []int) bool {
+    if a[0] <= b[1] && a[0] >= b[0] {
+      return true
+    } else if a[1] >= b[0] && a[1] <= b[1] {
+      return true
+    }
+    return false
 }
 
 func main() {
