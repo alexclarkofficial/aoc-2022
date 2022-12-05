@@ -33,7 +33,7 @@ func getElves(filename string) ([][]int, error) {
       }
       currentElfCalories = append(currentElfCalories, calories)
   }
-  
+
   return allElves, nil;
 }
 
@@ -45,7 +45,7 @@ func topElfTotal(elves [][]int) int {
     for _, calories := range elf {
       elfCalories += calories
     }
-    
+
     if elfCalories > max {
       max = elfCalories
     }
@@ -62,7 +62,7 @@ func topThreeElvesTotal(elves [][]int) int {
     for _, calories := range elf {
       elfCalories += calories
     }
-    
+
     if elfCalories > topElves[0] {
       topElves[2] = topElves[1]
       topElves[1] = topElves[0]
