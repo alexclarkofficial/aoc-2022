@@ -98,7 +98,7 @@ func main() {
   for sc.Scan() {
     games = append(games, strings.Fields(sc.Text()))
   }
-  
+
   partOneScore := partOne(games)
   fmt.Printf("Part one score: %d\n", partOneScore)
   partTwoScore := partTwo(games)
