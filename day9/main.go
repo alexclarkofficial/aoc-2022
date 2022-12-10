@@ -20,18 +20,18 @@ func main() {
 
 	sc := bufio.NewScanner(file)
 
-	forest := []instruction{}
+	instructions := []instruction{}
 	for sc.Scan() {
 		dir := ""
 		mag := 0
 
 		fmt.Sscanf(sc.Text(), "%s %d", &dir, &mag)
-		forest = append(forest, instruction{dir: dir, mag: mag})
+		instructions = append(instructions, instruction{dir: dir, mag: mag})
 	}
 
-	partOneAnswer := followInstructions(forest, 1)
+	partOneAnswer := followInstructions(instructions, 1)
 	fmt.Printf("Part one answer: %d\n", partOneAnswer)
-	partTwoAnswer := followInstructions(forest, 9)
+	partTwoAnswer := followInstructions(instructions, 9)
 	fmt.Printf("Part two answer: %d\n", partTwoAnswer)
 }
 
