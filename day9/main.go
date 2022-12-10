@@ -47,9 +47,9 @@ func followInstructions(instructions []instruction, ropeLength int) int {
 			headPos = moveHead(step.dir, headPos)
 			for j, _ := range knotPositions {
 				if j == 0 {
-					knotPositions[j] = moveTail(step.dir, knotPositions[j], headPos)
+					knotPositions[j] = moveTail(knotPositions[j], headPos)
 				} else {
-					knotPositions[j] = moveTail(step.dir, knotPositions[j], knotPositions[j-1])
+					knotPositions[j] = moveTail(knotPositions[j], knotPositions[j-1])
 				}
 			}
 			tailHistory[fmt.Sprintf("%d.%d", knotPositions[ropeLength-1][0], knotPositions[ropeLength-1][1])] = true
@@ -77,7 +77,7 @@ func moveHead(dir string, currentPos [2]int) [2]int {
 	return [2]int{0, 0}
 }
 
-func moveTail(dir string, currentPos [2]int, leadPos [2]int) [2]int {
+func moveTail(currentPos [2]int, leadPos [2]int) [2]int {
 	xDist := 0
 	yDist := 0
 	if leadPos[0] > currentPos[0] {
