@@ -64,10 +64,11 @@ func noBeaconCount(sensors [][4]int, line int) int {
 func possibleBeaconLocation(sensors [][4]int, boundary int) int {
 	for _, sensor := range sensors {
 		permimeter := absVal(sensor[0]-sensor[2]) + absVal(sensor[1]-sensor[3]) + 1
-		// Top Right
 		for i := permimeter; i >= 0; i-- {
+			var candidate [2]int
 			inverse := permimeter - i
-			candidate := [2]int{sensor[0] + i, sensor[1] + inverse}
+			// Top Right
+			candidate = [2]int{sensor[0] + i, sensor[1] + inverse}
 			if candidate[0] <= 0 || candidate[0] >= boundary ||
 				candidate[1] <= 0 || candidate[1] >= boundary {
 				continue
@@ -75,11 +76,8 @@ func possibleBeaconLocation(sensors [][4]int, boundary int) int {
 			if outOfRange(sensors, candidate) {
 				return candidate[0]*4000000 + candidate[1]
 			}
-		}
-		// Top Left
-		for i := permimeter; i >= 0; i-- {
-			inverse := permimeter - i
-			candidate := [2]int{sensor[0] + i, sensor[1] - inverse}
+			// Top Left
+			candidate = [2]int{sensor[0] + i, sensor[1] - inverse}
 			if candidate[0] <= 0 || candidate[0] >= boundary ||
 				candidate[1] <= 0 || candidate[1] >= boundary {
 				continue
@@ -87,11 +85,8 @@ func possibleBeaconLocation(sensors [][4]int, boundary int) int {
 			if outOfRange(sensors, candidate) {
 				return candidate[0]*4000000 + candidate[1]
 			}
-		}
-		// Bottom Right
-		for i := permimeter; i >= 0; i-- {
-			inverse := permimeter - i
-			candidate := [2]int{sensor[0] - i, sensor[1] + inverse}
+			// Bottom Right
+			candidate = [2]int{sensor[0] - i, sensor[1] + inverse}
 			if candidate[0] <= 0 || candidate[0] >= boundary ||
 				candidate[1] <= 0 || candidate[1] >= boundary {
 				continue
@@ -99,11 +94,8 @@ func possibleBeaconLocation(sensors [][4]int, boundary int) int {
 			if outOfRange(sensors, candidate) {
 				return candidate[0]*4000000 + candidate[1]
 			}
-		}
-		// Bottom Left
-		for i := permimeter; i >= 0; i-- {
-			inverse := permimeter - i
-			candidate := [2]int{sensor[0] + i, sensor[1] - inverse}
+			// Bottom Left
+			candidate = [2]int{sensor[0] + i, sensor[1] - inverse}
 			if candidate[0] <= 0 || candidate[0] >= boundary ||
 				candidate[1] <= 0 || candidate[1] >= boundary {
 				continue
@@ -118,10 +110,10 @@ func possibleBeaconLocation(sensors [][4]int, boundary int) int {
 }
 
 func outOfRange(sensors [][4]int, candidate [2]int) bool {
-	for _, otherSensor := range sensors {
-		otherSensorDistance := absVal(otherSensor[0]-otherSensor[2]) + absVal(otherSensor[1]-otherSensor[3])
-		distanceFromOther := absVal(candidate[0]-otherSensor[0]) + absVal(candidate[1]-otherSensor[1])
-		if distanceFromOther <= otherSensorDistance {
+	for _, sensor := range sensors {
+		distance := absVal(sensor[0]-sensor[2]) + absVal(sensor[1]-sensor[3])
+		distanceToCandidate := absVal(candidate[0]-sensor[0]) + absVal(candidate[1]-sensor[1])
+		if distanceToCandidate <= distance {
 			return false
 		}
 	}
